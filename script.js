@@ -1,6 +1,12 @@
 import data from './titanic-data.js'
 
-const portColor = {S: 'tomato', C: 'cornflowerblue', Q: 'orange', undefined: 'grey'}
+const portColor = {
+  total: 'black',
+  S: 'tomato', 
+  C: 'cornflowerblue', 
+  Q: 'orange', 
+  undefined: 'grey',
+}
 
 const titanicEmbarked = document.querySelector('#titanic-embarked')
 const embarkedCounts = data.reduce((acc, p) => {
@@ -12,20 +18,26 @@ const embarkedCounts = data.reduce((acc, p) => {
   return acc
 }, {})
 
+embarkedCounts.total = data.length
+
 const embarkedKeys = Object.keys(embarkedCounts) 
-// const embarkedPercent = embarkedCounts[e] / 891 * 100
 
 embarkedKeys.forEach((e) => {
   const el = document.createElement('div')
   titanicEmbarked.appendChild(el)
   el.style.width = '30px'
-  el.style.height = `${embarkedCounts[e]}px`
+  const count = embarkedCounts[e]
+  const percent = count / data.length * 100
+  el.style.height = `${percent}%`
   el.style.backgroundColor = portColor[e]
   el.style.margin = '1px'
 })
 
 titanicEmbarked.style.display = 'flex'
 titanicEmbarked.style.alignItems = 'flex-end'
+titanicEmbarked.style.border = '1px solid'
+titanicEmbarked.style.width = '200px'
+titanicEmbarked.style.height = '300px'
 
 // Get a reference to the #titanic
 const titanic = document.querySelector('#titanic')
